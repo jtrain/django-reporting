@@ -8,6 +8,7 @@ from django.utils.text import capfirst
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
 
 from filterspecs import *
 
@@ -268,10 +269,10 @@ class Report(object):
     def details_switch(self):
         "Link for turning on/off details view"
         if self.show_details:
-            title = 'Hide'
+            title = _('Hide')
             url = self.get_query_string({}, DETAILS_SWITCH_VAR)
         else:
-            title = 'Show'
+            title = _('Show')
             url = self.get_query_string({DETAILS_SWITCH_VAR:'y'})
         return '<a href="%s">%s</a>' % (url, title)
         

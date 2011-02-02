@@ -12,7 +12,7 @@
 
 {% block breadcrumbs %}
 <div class="breadcrumbs">
-     <a href="/admin/">{% trans "Home" %}</a> &rsaquo;
+    <a href="{% url admin:index %}">{% trans "Home" %}</a> &rsaquo;
      <a href="{% url reporting-list %}">Reports</a> &rsaquo;
      {{report.verbose_name}} 
 
@@ -35,10 +35,10 @@
         {% if report.has_filters %}
 		    <div id="changelist-filter">
 		      {% if report.detail_list_display %}
-		      <h2>Details</h2>
+              <h2>{% trans 'Details' %}</h2>
 		      <ul><li>{{report.details_switch|safe}}</li></ul>
 		      {% endif %}
-		      <h2> Group by </h2>
+              <h2>{% trans 'Group by' %} </h2>
 		      <ul>
 		      {% for url, name, selected in report.group_by_links %}
 		      		<li{% if selected %} class="selected"{% endif %}><a href="{{url}}">{{name}}</a></li>
@@ -64,41 +64,41 @@
 				</thead>
 			{% endif %}
 			{% for row in report.results %}
-			{% if not report.show_details %}
-				<tr class="row{% if forloop.counter0|divisibleby:"2" %}1{%else%}2{% endif %}">
-					{% for value in row.values %}<td>{{value}}</td>{% endfor %}
-				</tr>
-			{% else%}
-				<tr class="row{% if forloop.counter0|divisibleby:"2" %}1{%else%}2{% endif %}">
-					<td colspan="{{report.header_count}}" style="text-align: left;"><strong>{{row.values.0}}</strong></td>
-				</tr>
-			{% endif %}
-			{% if row.details %}
-				<thead>
-				<tr class="row{% if forloop.counter0|divisibleby:"2" %}1{%else%}2{% endif %}">
-					<td style="border-bottom: 0px;"></td>
-					{% for col in report.get_details_headers %}<th>{{col}}</th>{% endfor %}
-				</tr>
-				</thead>
-				{% for details_row in row.details %}
-				<tr class="row{% if forloop.parentloop.counter0|divisibleby:"2" %}1{%else%}2{% endif %}">
-					<td style="border-bottom: 0px;"></td>
-					{% for value in details_row %}<td>{{value}}</td>{% endfor %}
-				</tr>
-				{% endfor %}
-				{% if report.show_details %}
-					<tr class="row{% if forloop.counter0|divisibleby:"2" %}1{%else%}2{% endif %}">
-						{% for value in row.values %}
-							{% if not forloop.counter0 %}
-								<td> </td>
-							{% else %}
-								<td><strong>{{value}}</strong></td>
-							{% endif %}
-						{% endfor %}
-					</tr>
-				{% endif %}
+                {% if not report.show_details %}
+                    <tr class="row{% if forloop.counter0|divisibleby:"2" %}1{%else%}2{% endif %}">
+                        {% for value in row.values %}<td>{{value}}</td>{% endfor %}
+                    </tr>
+                {% else%}
+                    <tr class="row{% if forloop.counter0|divisibleby:"2" %}1{%else%}2{% endif %}">
+                        <td colspan="{{report.header_count}}" style="text-align: left;"><strong>{{row.values.0}}</strong></td>
+                    </tr>
+                {% endif %}
+                {% if row.details %}
+                    <thead>
+                    <tr class="row{% if forloop.counter0|divisibleby:"2" %}1{%else%}2{% endif %}">
+                        <td style="border-bottom: 0px;"></td>
+                        {% for col in report.get_details_headers %}<th>{{col}}</th>{% endfor %}
+                    </tr>
+                    </thead>
+                    {% for details_row in row.details %}
+                    <tr class="row{% if forloop.parentloop.counter0|divisibleby:"2" %}1{%else%}2{% endif %}">
+                        <td style="border-bottom: 0px;"></td>
+                        {% for value in details_row %}<td>{{value}}</td>{% endfor %}
+                    </tr>
+                    {% endfor %}
+                    {% if report.show_details %}
+                        <tr class="row{% if forloop.counter0|divisibleby:"2" %}1{%else%}2{% endif %}">
+                            {% for value in row.values %}
+                                {% if not forloop.counter0 %}
+                                    <td> </td>
+                                {% else %}
+                                    <td><strong>{{value}}</strong></td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    {% endif %}
 
-			{% endif %}
+                {% endif %}
 			{% endfor %}
 			{% if report.aggregate %}
 			<tr>

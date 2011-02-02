@@ -2,7 +2,6 @@ import imp
 from base import Report
 
 
-
 _registry = {}
 
 def register(slug, klass):

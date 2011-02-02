@@ -33,5 +33,15 @@ class PersonReport(reporting.Report):
 
     date_hierarchy = 'birth_date' # the same as django-admin
 
-
 reporting.register('people', PersonReport) # Do not forget to 'register' your class in reports
+
+class PersonWithExpensesReport(PersonReport):
+
+    def get_queryset(self):
+        qs = super(PersonWithExpensesReport, self).get_queryset()
+        qs = qs.filter(expenses__gt=0)
+        return qs
+
+    verbose_name = 'People with expenses Report'
+
+reporting.register('expenses', PersonWithExpensesReport) # Do not forget to 'register' your class in reports
