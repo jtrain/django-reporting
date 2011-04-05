@@ -78,7 +78,7 @@ models.py::
 
 in your application create a *reports.py*
 
-reports.py::
+reports.py:: python
 
   import reporting
   from django.db.models import Sum, Avg, Count
