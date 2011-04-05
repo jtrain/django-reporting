@@ -3,7 +3,7 @@ from django.template.context import RequestContext
 import reporting
 
 def report_list(request):
-    reports = reporting.all_reports()
+    reports = [(s, r(request)) for (s,r) in reporting.all_reports()]
     return render_to_response('reporting/list.html', {'reports': reports}, 
                               context_instance=RequestContext(request))
 

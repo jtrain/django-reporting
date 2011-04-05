@@ -13,7 +13,6 @@
 <div class="breadcrumbs">
      <a href="/admin/">{% trans "Home" %}</a> &rsaquo;
      Reports 
-
 </div>
 {% endblock %}
 
@@ -30,7 +29,7 @@
         <div id="changelist">
 			{% for slug, report in reports %}
                 <a href="{% url reporting-view slug %}" alt="{{report.verbose_name}}" title="{{report.verbose_name}}"> {{report.verbose_name}}</a>
-            </br>
+            <br />
 			{% endfor %}
 	  </div>
     </div>
